@@ -20,4 +20,9 @@ public class Lutador extends Combatente {
             adversario.defender(this.socar());
         }
     }
+
+    @Override
+    public String toString() {
+        return "Lutador: " + super.toString();
+    }
 }

@@ -20,4 +20,9 @@ public class Fera extends Combatente {
             adversario.defender(this.usarGarra());
         }
     }
+
+    @Override
+    public String toString() {
+        return "Fera: " + super.toString();
+    }
 }

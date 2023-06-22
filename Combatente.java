@@ -9,7 +9,7 @@ public class Combatente {
     }
 
     public void atacar(Combatente adversario) {
-        int poderOfensivo = (int)(Math.random() * 100);
+        int poderOfensivo = (int) (Math.random() * 100);
         adversario.defender(poderOfensivo);
     }
 
@@ -27,5 +27,10 @@ public class Combatente {
 
     public boolean estaVivo() {
         return nivelEnergia > 0;
+    }
+
+    @Override
+    public String toString() {
+        return identificacao;
     }
 }
