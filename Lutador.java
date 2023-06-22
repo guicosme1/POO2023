@@ -1,13 +1,15 @@
-public class Lutador extends Combatente {
+public class Lutador extends Combatente implements ArtesMarciais {
 
     public Lutador(String identificacao) {
         super(identificacao);
     }
 
+    @Override
     public int chutar() {
         return 20;
     }
 
+    @Override
     public int socar() {
         return 10;
     }
