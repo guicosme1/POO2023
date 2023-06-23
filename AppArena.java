@@ -1,9 +1,14 @@
 import java.util.Iterator;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 
 public class AppArena {
 
     static int qtdLutadores = 0;
     static int qtdFeras = 0;
+
+    static int qtdCombatentes = 0;
 
     private int numCombatentes;
     private Combatente[] combatentes;
@@ -12,6 +17,56 @@ public class AppArena {
     public AppArena(int numCombatentes) {
         this.numCombatentes = numCombatentes;
         combatentes = gerarVetorCombatentes(numCombatentes);
+
+        lerPersonagensDoArquivo("personagens.csv");
+    }
+
+    private void lerPersonagensDoArquivo(String arquivo) {
+        try {
+            File file = new File(arquivo);
+            Scanner scanner = new Scanner(file);
+
+            while (scanner.hasNextLine()) {
+                String linha = scanner.nextLine();
+                String[] valores = linha.split(",");
+
+                if (valores.length == 9) {
+                    String tipoPersonagem = valores[0].trim();
+                    String nomePersonagem = valores[1].trim();
+                    int nivelEnergia = Integer.parseInt(valores[2].trim());
+                    String descricaoArma = valores[3].trim();
+                    String descricaoGolpe = valores[4].trim();
+                    int poderOfensivoGolpe = Integer.parseInt(valores[5].trim());
+                    String descricaoArmadura = valores[6].trim();
+                    int poderDefesaArmadura = Integer.parseInt(valores[7].trim());
+                    String estadoConservacaoArmadura = valores[8].trim();
+
+                    if (tipoPersonagem.equals("Lutador")) {
+                        Lutador lutador = new Lutador(nomePersonagem);
+                        lutador.setDescricaoArma(descricaoArma);
+                        lutador.setDescricaoGolpe(descricaoGolpe);
+                        lutador.setPoderOfensivoGolpe(poderOfensivoGolpe);
+                        lutador.setDescricaoArmadura(descricaoArmadura);
+                        lutador.setPoderDefesaArmadura(poderDefesaArmadura);
+                        lutador.setEstadoConservacaoArmadura(estadoConservacaoArmadura);
+                        combatentes[qtdCombatentes++] = lutador;
+                    } else if (tipoPersonagem.equals("Fera")) {
+                        Fera fera = new Fera(nomePersonagem);
+                        fera.setDescricaoArma(descricaoArma);
+                        fera.setDescricaoGolpe(descricaoGolpe);
+                        fera.setPoderOfensivoGolpe(poderOfensivoGolpe);
+                        fera.setDescricaoArmadura(descricaoArmadura);
+                        fera.setPoderDefesaArmadura(poderDefesaArmadura);
+                        fera.setEstadoConservacaoArmadura(estadoConservacaoArmadura);
+                        combatentes[qtdCombatentes++] = fera;
+                    }
+                }
+            }
+
+            scanner.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     private Combatente[] gerarVetorCombatentes(int qtdCombatentes) {

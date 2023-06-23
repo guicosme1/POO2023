@@ -1,30 +1,69 @@
-public class Lutador extends Combatente implements ArtesMarciais {
+public class Lutador extends Combatente {
+    private String descricaoArma;
+    private String descricaoGolpe;
+    private int poderOfensivoGolpe;
+    private String descricaoArmadura;
+    private int poderDefesaArmadura;
+    private String estadoConservacaoArmadura;
 
     public Lutador(String identificacao) {
         super(identificacao);
     }
 
-    @Override
-    public int chutar() {
-        return 20;
-    }
-
-    @Override
-    public int socar() {
-        return 10;
-    }
-
-    @Override
     public void atacar(Combatente adversario) {
         if (Math.random() > 0.5) {
-            adversario.defender(this.chutar());
+            adversario.defender(this.poderOfensivoGolpe);
         } else {
-            adversario.defender(this.socar());
+            adversario.defender(0); // Não realiza o golpe
         }
     }
 
-    @Override
-    public String toString() {
-        return "Lutador: " + super.toString();
+    // Getters e Setters
+    public String getDescricaoArma() {
+        return descricaoArma;
+    }
+
+    public void setDescricaoArma(String descricaoArma) {
+        this.descricaoArma = descricaoArma;
+    }
+
+    public String getDescricaoGolpe() {
+        return descricaoGolpe;
+    }
+
+    public void setDescricaoGolpe(String descricaoGolpe) {
+        this.descricaoGolpe = descricaoGolpe;
+    }
+
+    public int getPoderOfensivoGolpe() {
+        return poderOfensivoGolpe;
+    }
+
+    public void setPoderOfensivoGolpe(int poderOfensivoGolpe) {
+        this.poderOfensivoGolpe = poderOfensivoGolpe;
+    }
+
+    public String getDescricaoArmadura() {
+        return descricaoArmadura;
+    }
+
+    public void setDescricaoArmadura(String descricaoArmadura) {
+        this.descricaoArmadura = descricaoArmadura;
+    }
+
+    public int getPoderDefesaArmadura() {
+        return poderDefesaArmadura;
+    }
+
+    public void setPoderDefesaArmadura(int poderDefesaArmadura) {
+        this.poderDefesaArmadura = poderDefesaArmadura;
+    }
+
+    public String getEstadoConservacaoArmadura() {
+        return estadoConservacaoArmadura;
+    }
+
+    public void setEstadoConservacaoArmadura(String estadoConservacaoArmadura) {
+        this.estadoConservacaoArmadura = estadoConservacaoArmadura;
     }
 }
