@@ -1,69 +1,60 @@
-public class Fera extends Combatente {
-    private String descricaoArma;
-    private String descricaoGolpe;
-    private int poderOfensivoGolpe;
-    private String descricaoArmadura;
-    private int poderDefesaArmadura;
-    private String estadoConservacaoArmadura;
 
-    public Fera(String identificacao) {
-        super(identificacao);
+public class Fera extends Personagem {
+
+    public Fera(String nome) {
+        super(nome);
+        this.nivelEnergia = 100;
     }
 
-    public void atacar(Combatente adversario) {
-        if (Math.random() > 0.5) {
-            adversario.defender(this.poderOfensivoGolpe);
-        } else {
-            adversario.defender(0); // Não realiza o golpe
+    public Fera() {
+        this("Fera sem nome " + sequencialNome++);
+        this.nivelEnergia = Math.random() * 200;
+    }
+
+    public Fera(String string, double nivelEnergia) {
+        super(string, nivelEnergia);
+    }
+
+    public boolean estaVivo() {
+        return super.nivelEnergia > 0;
+    }
+
+    public void atacar(Personagem personagem) {
+        int tipoAtaque = (int) (Math.random() * 2);
+
+        if (tipoAtaque == 0)
+            morder(personagem);
+        else if (tipoAtaque == 1)
+            usarGarra(personagem);
+    }
+
+    public void defender(double poderAtaque) {
+        int tipoDefesa = (int) (Math.random() * 2);
+
+        if (tipoDefesa == 0)
+            pular(poderAtaque);
+        else if (tipoDefesa == 1)
+            correr(poderAtaque);
+        else {
+            nivelEnergia -= poderAtaque;
         }
     }
 
-    // Getters e Setters
-    public String getDescricaoArma() {
-        return descricaoArma;
+    public void morder(Personagem personagem) {
+        personagem.defender(10);
     }
 
-    public void setDescricaoArma(String descricaoArma) {
-        this.descricaoArma = descricaoArma;
+    public void usarGarra(Personagem personagem) {
+        personagem.defender(20);
     }
 
-    public String getDescricaoGolpe() {
-        return descricaoGolpe;
+    public void pular(double poderAtaque) {
+        nivelEnergia -= poderAtaque * 0.01;
     }
 
-    public void setDescricaoGolpe(String descricaoGolpe) {
-        this.descricaoGolpe = descricaoGolpe;
+    public void correr(double poderAtaque) {
+        nivelEnergia -= poderAtaque * 0.05;
     }
 
-    public int getPoderOfensivoGolpe() {
-        return poderOfensivoGolpe;
-    }
 
-    public void setPoderOfensivoGolpe(int poderOfensivoGolpe) {
-        this.poderOfensivoGolpe = poderOfensivoGolpe;
-    }
-
-    public String getDescricaoArmadura() {
-        return descricaoArmadura;
-    }
-
-    public void setDescricaoArmadura(String descricaoArmadura) {
-        this.descricaoArmadura = descricaoArmadura;
-    }
-
-    public int getPoderDefesaArmadura() {
-        return poderDefesaArmadura;
-    }
-
-    public void setPoderDefesaArmadura(int poderDefesaArmadura) {
-        this.poderDefesaArmadura = poderDefesaArmadura;
-    }
-
-    public String getEstadoConservacaoArmadura() {
-        return estadoConservacaoArmadura;
-    }
-
-    public void setEstadoConservacaoArmadura(String estadoConservacaoArmadura) {
-        this.estadoConservacaoArmadura = estadoConservacaoArmadura;
-    }
 }
